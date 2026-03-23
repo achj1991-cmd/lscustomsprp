@@ -393,18 +393,18 @@ function finalizarCompra() {
     alert("Carrinho vazio!");
     return;
   }
-  
-  const cliente = prompt("Nome do Cliente:");
-  if(!cliente || cliente.trim() === "") {
-    alert("Deves inserir o nome do cliente!");
-    return;
-  }
-  
-  const mecanico = prompt("Nome do Mecânico:");
-  if(!mecanico || mecanico.trim() === "") {
-    alert("Deves inserir o nome do mecânico!");
-    return;
-  }
+
+    const cliente = prompt("Nome do Cliente:");
+if(!cliente || cliente.trim() === "") {
+  alert("Deves inserir o nome do cliente!");
+  return;
+}
+
+const mecanico = prompt("Nome do Mecânico:");
+if(!mecanico || mecanico.trim() === "") {
+  alert("Deves inserir o nome do mecânico!");
+  return;
+}
   
   const now = new Date();
   const dataHora = now.toLocaleString("pt-PT");
@@ -570,7 +570,21 @@ function showPage(page) {
     renderFaturas();
   }
 }
+async function enviarParaSheets(fatura) {
+  const url = "https://script.google.com/macros/s/AKfycbyqG-iR5PzD8fR--4YisoEFgz4QU9RoG99KpMpKLLOezZ9_IhXsyB6N3fH23xIrCgXg/exec";
 
+  try {
+    await fetch(url, {
+      method: "POST",
+      body: JSON.stringify(fatura),
+      headers: {
+        "Content-Type": "application/json"
+      }
+    });
+  } catch (err) {
+    console.error("Erro ao enviar:", err);
+  }
+}
 renderPecas();
 renderMenuCompleto();
 renderCarrinho();
